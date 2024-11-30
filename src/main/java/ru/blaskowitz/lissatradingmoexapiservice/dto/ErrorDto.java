@@ -13,10 +13,8 @@ public class ErrorDto {
     private int status;
 
     public ErrorDto(String error, int status) {
-
         this.error = error;
         this.timestamp = LocalDateTime.now();
         this.status = status;
-
     }
 }
