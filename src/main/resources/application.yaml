@@ -1,0 +1,6 @@
+server:
+  port: 8086
+
+integration:
+  rest:
+    iss-moex-url: "https://iss.moex.com/iss"
