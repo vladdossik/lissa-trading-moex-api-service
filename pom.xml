@@ -8,7 +8,7 @@
         <version>3.3.6</version>
         <relativePath/>
     </parent>
-    <groupId>ru.blaskowitz</groupId>
+    <groupId>lissa.trading</groupId>
     <artifactId>lissa-trading-moex-api-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>lissa-trading-moex-api-service</name>
