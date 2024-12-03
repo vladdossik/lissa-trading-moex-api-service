@@ -15,16 +15,16 @@ public class IssMoexClient {
 
     private final WebClient issMoexWebClient;
 
-    private final static String getStockUrl = "/securities/%s.json";
-    private final static String getStockPricesUrl = "/engines/stock/markets/" +
+    private final static String GET_STOCK_URL = "/securities/%s.json";
+    private final static String GET_STOCK_PRICES_URL = "/engines/stock/markets/" +
             "shares/boards/TQBR/securities/%s.json";
-    private final static String getCandleListUrl = "/engines/stock/markets/" +
+    private final static String GET_CANDLE_LIST_URL = "/engines/stock/markets/" +
             "shares/boards/TQBR/securities/%s/candles.json";
 
     public Mono<MoexUniversalDto> getStockByTicker(String ticker) {
         return issMoexWebClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(String.format(getStockUrl, ticker))
+                        .path(String.format(GET_STOCK_URL, ticker))
                         .queryParam("iss.only", "description")
                         .queryParam("iss.meta", "off")
                         .queryParam("description.columns", "name,value")
@@ -38,7 +38,7 @@ public class IssMoexClient {
     public Mono<MoexUniversalDto> getStockPriceByTicker(String ticker) {
         return issMoexWebClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(String.format(getStockPricesUrl, ticker))
+                        .path(String.format(GET_STOCK_PRICES_URL, ticker))
                         .queryParam("iss.meta", "off")
                         .queryParam("iss.only", "marketdata")
                         .queryParam("marketdata.columns", "LAST")
@@ -51,7 +51,7 @@ public class IssMoexClient {
     public Mono<MoexUniversalDto> getCandleList(CandlesRequestDto candlesRequestDto, int start) {
         return issMoexWebClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(String.format(getCandleListUrl, candlesRequestDto.getInstrumentId()))
+                        .path(String.format(GET_CANDLE_LIST_URL, candlesRequestDto.getInstrumentId()))
                         .queryParam("from", candlesRequestDto.getFrom().toLocalDate())
                         .queryParam("till", candlesRequestDto.getTill().toLocalDate())
                         .queryParam("interval", candlesRequestDto.getInterval().getMaxSupportedIntervalValue())

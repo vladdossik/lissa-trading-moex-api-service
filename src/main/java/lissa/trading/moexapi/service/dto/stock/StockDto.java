@@ -17,6 +17,6 @@ public class StockDto {
     @JsonProperty("ticker")
     private String secid;
 
-    @JsonProperty("Currency")
+    @JsonProperty("currency")
     private String faceunit;
 }
