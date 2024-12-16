@@ -1,12 +1,10 @@
 package lissa.trading.moexapi.service.dto.candle;
 
 import lissa.trading.moexapi.service.exception.IllegalCandlesRequestTimeIntervalException;
-import lissa.trading.moexapi.service.exception.IllegalCandlesRequestZoneOffsetException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
-import java.time.ZoneOffset;
 
 @Component
 @Slf4j

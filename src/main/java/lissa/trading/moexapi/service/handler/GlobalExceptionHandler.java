@@ -1,7 +1,6 @@
 package lissa.trading.moexapi.service.handler;
 
 import lissa.trading.moexapi.service.exception.IllegalCandlesRequestTimeIntervalException;
-import lissa.trading.moexapi.service.exception.IllegalCandlesRequestZoneOffsetException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,7 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.BAD_REQUEST.value()),
                 HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler(WebClientResponseException.class)
     public ResponseEntity<ErrorDto> handleWebClientResponseException(WebClientResponseException exception) {
         return new ResponseEntity<>(
