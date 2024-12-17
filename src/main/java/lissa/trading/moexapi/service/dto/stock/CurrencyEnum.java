@@ -13,12 +13,12 @@ import java.util.Map;
 public enum CurrencyEnum {
     RUB("SUR");
 
-    private final String legacyCode;
+    private final String legacyCurrencyCode;
     private final static Map<String, CurrencyEnum> legacyCodeToEnum = new HashMap<>();
 
     static {
         for (CurrencyEnum currency : values()) {
-            legacyCodeToEnum.put(currency.getLegacyCode(), currency);
+            legacyCodeToEnum.put(currency.getLegacyCurrencyCode(), currency);
         }
     }
 
