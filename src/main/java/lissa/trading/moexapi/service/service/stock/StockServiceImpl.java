@@ -3,6 +3,7 @@ package lissa.trading.moexapi.service.service.stock;
 import lissa.trading.moexapi.service.dto.candle.CandleDto;
 import lissa.trading.moexapi.service.dto.candle.CandleListDto;
 import lissa.trading.moexapi.service.dto.candle.CandlesRequestDto;
+import lissa.trading.moexapi.service.dto.stock.CurrencyEnum;
 import lissa.trading.moexapi.service.service.ContentMapper;
 import lissa.trading.moexapi.service.service.candle.CandleAggregator;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ import lissa.trading.moexapi.service.dto.stock.StockDto;
 import lissa.trading.moexapi.service.dto.stock.StockDtoList;
 import lissa.trading.moexapi.service.dto.stock.StockPriceDto;
 import lissa.trading.moexapi.service.dto.stock.StockPriceDtoList;
+import lissa.trading.moexapi.service.dto.candle.CandleRequestValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class StockServiceImpl implements StockService {
     private final ContentMapper contentMapper;
     private final ContentValidator contentValidator;
     private final CandleAggregator candleAggregator;
+    private final CandleRequestValidator candleRequestValidator;
 
     public final static String MOEX_STOCK_INFO_TABLE_NAME = "description";
     public final static String MOEX_STOCK_PRICES_TABLE_NAME = "marketdata";
@@ -46,6 +48,7 @@ public class StockServiceImpl implements StockService {
 
         contentValidator.validateRequestWithTicker(contentDto, ticker);
         StockDto stockDto = contentMapper.contentToPojo(contentDto, StockDto.class);
+        stockDto.setFaceunit(CurrencyEnum.mapLegacyToModern(stockDto.getFaceunit()));
         return stockDto;
     }
 
@@ -89,6 +92,7 @@ public class StockServiceImpl implements StockService {
     }
 
     public CandleListDto getCandleList(CandlesRequestDto candlesRequestDto) {
+        candleRequestValidator.validateTimePeriodByInterval(candlesRequestDto);
         ContentDto allCandles = issMoexClient
                 .getCandleList(candlesRequestDto, 0)
                 .block()
