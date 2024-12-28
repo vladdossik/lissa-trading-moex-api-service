@@ -4,3 +4,4 @@ server:
 integration:
   rest:
     iss-moex-url: "https://iss.moex.com/iss"
+    auth-service-url: http://localhost:8081
