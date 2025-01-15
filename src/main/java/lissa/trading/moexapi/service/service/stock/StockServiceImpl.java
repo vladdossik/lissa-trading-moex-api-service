@@ -37,6 +37,7 @@ public class StockServiceImpl implements StockService {
     public final static String MOEX_STOCK_PRICES_TABLE_NAME = "marketdata";
     public final static String MOEX_CANDLES_TABLE_NAME = "candles";
     public final static int MAX_CANDLES_PER_REQUEST = 500;
+    public final static String SOURCE = "MOEX";
 
     @Override
     public StockDto getStock(String ticker) {
@@ -49,6 +50,8 @@ public class StockServiceImpl implements StockService {
         contentValidator.validateRequestWithTicker(contentDto, ticker);
         StockDto stockDto = contentMapper.contentToPojo(contentDto, StockDto.class);
         stockDto.setFaceunit(CurrencyEnum.mapLegacyToModern(stockDto.getFaceunit()));
+        stockDto.setSource("MOEX");
+        stockDto.setFigi(stockDto.getSecid());
         return stockDto;
     }
 
