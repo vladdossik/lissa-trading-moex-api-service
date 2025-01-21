@@ -27,31 +27,26 @@ public class MoexController {
 
     @GetMapping("/{ticker}")
     public StockDto getStock(@PathVariable String ticker) {
-        log.info("Requesting getStock endpoint with ticker: {} ", ticker);
         return stockService.getStock(ticker);
     }
 
     @PostMapping("/stocks")
     public StockDtoList getStocks(@RequestBody TickerListDto tickerListDto) {
-        log.info("Requesting getStocks endpoint with params: {} ", tickerListDto);
         return stockService.getStocks(tickerListDto);
     }
 
     @PostMapping("/stocks/prices")
     public StockPriceDtoList getStocksPrices(@RequestBody TickerListDto tickerListDto) {
-        log.info("Requesting getStockPrices endpoint with params: {} ", tickerListDto);
         return stockService.getStockPrices(tickerListDto);
     }
 
     @PostMapping("/companies")
     public CompanyListDto getCompanies(@RequestBody TickerListDto tickerListDto) {
-        log.info("Requesting getCompanies endpoint with params: {} ", tickerListDto);
         return stockService.getCompanyNames(tickerListDto);
     }
 
     @PostMapping("/candles")
     public CandleListDto getCandles(@RequestBody CandlesRequestDto candlesRequestDto) {
-        log.info("Requesting getCandles endpoint with param: {} ", candlesRequestDto);
         return stockService.getCandleList(candlesRequestDto);
     }
 }
