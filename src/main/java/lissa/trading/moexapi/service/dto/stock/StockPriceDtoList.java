@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StockPriceDtoList {
-    private List<StockPriceDto> stockPrices;
+    private List<StockPriceDto> prices;
 }

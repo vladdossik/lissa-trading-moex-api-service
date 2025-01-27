@@ -37,6 +37,7 @@ public class StockServiceImpl implements StockService {
     public final static String MOEX_STOCK_PRICES_TABLE_NAME = "marketdata";
     public final static String MOEX_CANDLES_TABLE_NAME = "candles";
     public final static int MAX_CANDLES_PER_REQUEST = 500;
+    public final static String SOURCE = "MOEX";
 
     @Override
     public StockDto getStock(String ticker) {
@@ -49,13 +50,15 @@ public class StockServiceImpl implements StockService {
         contentValidator.validateRequestWithTicker(contentDto, ticker);
         StockDto stockDto = contentMapper.contentToPojo(contentDto, StockDto.class);
         stockDto.setFaceunit(CurrencyEnum.mapLegacyToModern(stockDto.getFaceunit()));
+        stockDto.setSource(SOURCE);
+        stockDto.setFigi(stockDto.getSecid());
         return stockDto;
     }
 
     @Override
     public StockDtoList getStocks(TickerListDto tickerListDto) {
         List<StockDto> stockDtoList = tickerListDto
-                .getTickerList()
+                .getTickers()
                 .stream()
                 .map(this::getStock)
                 .toList();
@@ -65,7 +68,7 @@ public class StockServiceImpl implements StockService {
     @Override
     public StockPriceDtoList getStockPrices(TickerListDto tickerListDto) {
         List<StockPriceDto> stockPriceDtoList = tickerListDto
-                .getTickerList()
+                .getTickers()
                 .stream()
                 .map(ticker -> {
                     ContentDto contentDto = issMoexClient
@@ -74,7 +77,10 @@ public class StockServiceImpl implements StockService {
                             .getContentMap()
                             .get(MOEX_STOCK_PRICES_TABLE_NAME);
                     contentValidator.validateRequestWithTicker(contentDto, ticker);
-                    return contentMapper.contentToPojoUsingColumns(contentDto, StockPriceDto.class);
+                    StockPriceDto stockPrice = contentMapper
+                            .contentToPojoUsingColumns(contentDto, StockPriceDto.class);
+                    stockPrice.setFigi(ticker);
+                    return stockPrice;
                 })
                 .toList();
         
