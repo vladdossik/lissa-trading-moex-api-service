@@ -1,4 +1,4 @@
-package lissa.trading.moexapi.service.security;
+package lissa.trading.moexapi.service.security.jwt;
 
 import lissa.trading.lissa.auth.lib.dto.UserInfoDto;
 import lissa.trading.lissa.auth.lib.feign.AuthServiceClient;
