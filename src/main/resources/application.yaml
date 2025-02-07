@@ -1,6 +1,10 @@
 server:
   port: 8086
 
+security:
+  internal:
+    token: Ylc5bGVFRndhUzFwYm5SbGNtNWhiQzFyWlhrPQ==
+
 integration:
   rest:
     iss-moex-url: "https://iss.moex.com/iss"
